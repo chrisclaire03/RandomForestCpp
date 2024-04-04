@@ -11,18 +11,20 @@
 #include<fstream>
 #include<sstream>
 #include<iostream>
+#include<random>
 
 class Data{
     private:
         std::vector<std::vector<double>> features;
         std::vector<std::string> labels;
-        void addDataPoint(const std::vector<double>& feature, int label);
     public:
-        Data(){}
+        Data(){};
+        Data(const std::vector<std::vector<double>>& featureVector,const std::vector<std::string>& labelVector): features(featureVector), labels(labelVector){};
         void loadDataFromCSV(std::string& csvFileName, int targetFeatureIndex);
         void printData();
-        std::vector<std::vector<double>>& getFeatures();
-        std::vector<int>& getLabels();
+        Data bootstrapData(int numSamples, int numFeatures);
+
+
 };
 
 #endif

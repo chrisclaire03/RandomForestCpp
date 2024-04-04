@@ -36,18 +36,30 @@ void Data::printData(){
     }
 }
 
-/*
-void Data::addDataPoint(const std::vector<double>& feature, int label){
-    features.push_back(feature);
-    labels.push_back(label);
-}
+Data Data::bootstrapData(int numSamples, int numFeatures){   
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<int> sampleDistribution(0, features.size() - 1);
+    std::uniform_int_distribution<int> featureDistribution(0,features[0].size() - 1);
 
+    std::vector<int> sampledFeatures;
+    for(int i = 0; i < numFeatures; i++){
+        int randomIndex = featureDistribution(gen);
+        sampledFeatures.push_back(randomIndex);
+    }
 
-std::vector<std::vector<double>>& Data::getFeatures(){
-    return features;
-}
+    std::vector<std::string> bootstrappedLabels;
+    std::vector<std::vector<double>> bootstrappedFeatures;
 
-std::vector<int>& Data::getLabels(){
-    return labels;
+    for(int i = 0; i < numSamples; i++){
+        int randomIndex = sampleDistribution(gen);
+        std::vector<double> tempFeatureVector;
+        for(int& index : sampledFeatures){
+            tempFeatureVector.push_back(features[randomIndex][index]);
+        }
+        bootstrappedFeatures.push_back(tempFeatureVector);
+        bootstrappedLabels.push_back(labels[randomIndex]);
+    }
+
+    return Data(bootstrappedFeatures,bootstrappedLabels);
 }
-*/
