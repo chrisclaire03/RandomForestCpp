@@ -5,30 +5,29 @@
 
 #ifndef NODE_H
 #define NODE_H
+#include<string>
 
 class Node{
     public:
         int featureIndex;
         double threshold;
-        int label;
-        bool isLeaf;
+        std::string label;
         Node* left;
         Node* right;
 
-        Node(int bestFeatureIndex, double bestThreshold){
+
+        Node(int bestFeatureIndex, double bestThreshold, Node* leftChild, Node* rightChild){
             featureIndex = bestFeatureIndex;
             threshold = bestThreshold;
-            isLeaf = false;
-            left = nullptr;
-            right = nullptr;
+            left = leftChild;
+            right = rightChild;
         };
 
-        Node(bool leaf,int aLabel){
-            isLeaf = leaf;
+        Node(std::string aLabel){
             label = aLabel;
             left = nullptr;
             right = nullptr;
-        };
+        }
 };
 
 #endif

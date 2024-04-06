@@ -40,6 +40,8 @@ class Data{
             }
         }
         
+        bool isPure();
+
         std::string getLabel(int index){return labels[index];}
 
 

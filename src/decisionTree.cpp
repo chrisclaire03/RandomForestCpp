@@ -5,7 +5,7 @@ void DecisionTree::train(Data &trainData){
 }
 
 Node* DecisionTree::buildTree(Data& data, int depth){
-    if(depth >= maxDepth){
+    if(depth >= maxDepth || data.isPure()){
         return createLeafNode(data);
     }
     
@@ -24,6 +24,40 @@ Node* DecisionTree::buildTree(Data& data, int depth){
             }
         }
     }
+
+    std::vector<std::vector<double>> leftFeatures;
+    std::vector<std::vector<double>> rightFeatures;
+
+    std::vector<std::string> leftLabels;
+    std::vector<std::string> rightLabels;
+
+    int featuresSize;
+
+    for(int i = 0; i < data.getSampleSize(); i++){
+        std::vector<double> temp;
+        for(int j = 0; j < featuresSize; j++){
+            if(j != bestFeatureIndex){
+                temp.push_back(data.getFeature(j,i));
+            }
+        }
+        if(data.getFeature(bestFeatureIndex, i) <= bestThreshold){
+            leftFeatures.push_back(temp);
+            leftLabels.push_back(data.getLabel(i));
+        }
+        else{
+            rightFeatures.push_back(temp);
+            rightLabels.push_back(data.getLabel(i));
+        }
+    }
+
+    Data leftSubset(leftFeatures,leftLabels);
+    Data rightSubset(rightFeatures, rightLabels);
+
+    Node* leftChild = buildTree(leftSubset, depth + 1);
+    Node* rightChild = buildTree(rightSubset, depth + 1);
+
+    return new Node(bestFeatureIndex,bestThreshold, leftChild, rightChild);
+    
 }
 
 double calculateGini(Data& data, int featureIndex, double threshold){
@@ -64,4 +98,20 @@ double calculateGini(Data& data, int featureIndex, double threshold){
     rightGini = rightGini * (static_cast<double>(rightCount)/totalSamples);
 
     return leftGini + rightGini;
+}
+
+Node* createLeafNode(Data& data){
+    std::unordered_map<std::string, int> labelCounts;
+    for(int i = 0; i < data.getSampleSize(); i++){
+        labelCounts[data.getLabel(i)]++;
+    }
+    std::string mostCommonLabel = "";
+    int maxCount = 0;
+    for(const auto& label : labelCounts){
+        if(label.second > maxCount){
+            mostCommonLabel = label.first;
+        }
+    }
+
+    return new Node(mostCommonLabel);
 }
