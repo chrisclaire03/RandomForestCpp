@@ -23,6 +23,24 @@ class Data{
         void loadDataFromCSV(std::string& csvFileName, int targetFeatureIndex);
         void printData();
         Data bootstrapData(int numSamples, int numFeatures);
+        
+        int getFeatureSize() {
+            return features[0].size();
+        };
+        int getSampleSize(){
+            return features.size();
+        };
+
+        double getFeature(int featureIndex, int sampleIndex){
+            if(featureIndex < getFeatureSize() && sampleIndex < getSampleSize()){
+                return features[sampleIndex][featureIndex];
+            }
+            else{
+                return -1;
+            }
+        }
+        
+        std::string getLabel(int index){return labels[index];}
 
 
 };
