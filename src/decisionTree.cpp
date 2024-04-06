@@ -115,3 +115,19 @@ Node* createLeafNode(Data& data){
 
     return new Node(mostCommonLabel);
 }
+
+std::string DecisionTree::predict(const std::vector<double>& input){
+    return predict(input, root);
+}
+
+std::string DecisionTree::predict(const std::vector<double>& input, Node* cur){
+    if(cur->isLeaf()){
+        return cur->label;
+    }
+    if(input[cur->featureIndex] <= cur->threshold){
+        return predict(input, cur->left);
+    }
+    else{
+        return predict(input, cur->right);
+    }
+}

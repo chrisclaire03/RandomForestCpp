@@ -28,6 +28,15 @@ class Node{
             left = nullptr;
             right = nullptr;
         }
+
+        bool isLeaf(){
+            if(left == nullptr && right == nullptr){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
 };
 
 #endif
