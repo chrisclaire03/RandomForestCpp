@@ -1,5 +1,4 @@
 /// Node
-/// This...
 /// @author: Christopher Claire
 /// @lastmodified: 3/7/2024
 
