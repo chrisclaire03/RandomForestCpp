@@ -19,7 +19,7 @@ class Data{
         std::vector<std::string> labels;
     public:
         Data(){};
-        Data(const std::vector<std::vector<double>>& featureVector,const std::vector<std::string>& labelVector): features(featureVector), labels(labelVector){};
+        Data(std::vector<std::vector<double>> featureVector,std::vector<std::string> labelVector): features(featureVector), labels(labelVector){};
         void loadDataFromCSV(std::string& csvFileName, int targetFeatureIndex);
         void printData();
         Data bootstrapData(int numSamples, int numFeatures);

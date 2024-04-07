@@ -17,15 +17,14 @@ class DecisionTree{
         Node* root;
         int maxDepth;
         int minSamplesSplit;
-        Node* buildTree(Data& data, int depth);
-        Node* createLeafNode(Data& data);
-        double calculateGini(Data& data, int featureIndex, double threshold);
+        Node* buildTree(Data data, int depth);
+        Node* createLeafNode(Data data);
+        double calculateGini(Data data, int featureIndex, double threshold);
         std::string predict(const std::vector<double>& input, Node* curNode);
     public:
         DecisionTree(int maxDepth, int minSamplesSplit) : root(nullptr), maxDepth(maxDepth), minSamplesSplit(minSamplesSplit){};
-        void train(Data &trainData);
+        void train(Data trainData);
         std::string predict(const std::vector<double>& input);
-
 };
 
 #endif

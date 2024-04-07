@@ -1,11 +1,14 @@
 #include "../include/decisionTree.h"
 
-void DecisionTree::train(Data &trainData){
+void DecisionTree::train(Data trainData){
+    if(trainData.getFeatureSize() < maxDepth){
+        maxDepth = trainData.getFeatureSize();
+    }
     root = buildTree(trainData, 0);
 }
 
-Node* DecisionTree::buildTree(Data& data, int depth){
-    if(depth >= maxDepth || data.isPure()){
+Node* DecisionTree::buildTree(Data data, int depth){
+    if(depth >= maxDepth || data.getSampleSize() < minSamplesSplit || data.isPure()){
         return createLeafNode(data);
     }
     
@@ -31,7 +34,7 @@ Node* DecisionTree::buildTree(Data& data, int depth){
     std::vector<std::string> leftLabels;
     std::vector<std::string> rightLabels;
 
-    int featuresSize;
+    int featuresSize = data.getFeatureSize();
 
     for(int i = 0; i < data.getSampleSize(); i++){
         std::vector<double> temp;
@@ -60,7 +63,7 @@ Node* DecisionTree::buildTree(Data& data, int depth){
     
 }
 
-double calculateGini(Data& data, int featureIndex, double threshold){
+double DecisionTree::calculateGini(Data data, int featureIndex, double threshold){
     int totalSamples = data.getSampleSize();
     int leftCount = 0;
     int rightCount = 0;
@@ -77,6 +80,10 @@ double calculateGini(Data& data, int featureIndex, double threshold){
             classCountsRight[data.getLabel(i)]++;
             rightCount++;
         }
+    }
+
+    if(leftCount < minSamplesSplit || rightCount < minSamplesSplit){
+        return 1;
     }
 
     double leftGini = 0.0;
@@ -100,7 +107,7 @@ double calculateGini(Data& data, int featureIndex, double threshold){
     return leftGini + rightGini;
 }
 
-Node* createLeafNode(Data& data){
+Node* DecisionTree::createLeafNode(Data data){
     std::unordered_map<std::string, int> labelCounts;
     for(int i = 0; i < data.getSampleSize(); i++){
         labelCounts[data.getLabel(i)]++;
