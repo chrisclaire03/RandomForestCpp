@@ -12,3 +12,15 @@ make
 ```
 ./rf data.csv targetFeatureIndex
 ```
+
+## Test with diabetes dataset
+
+features : Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin,BMI ,DiabetesPedigreeFunction, Age, Outcome
+target feature = Outcome
+command:
+
+```
+./rf datasets/diabetes.csv 8
+```
+
+Outputs results from created test set.
