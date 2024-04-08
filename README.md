@@ -1,1 +1,7 @@
 # RandomForestCpp
+
+## To Compile
+
+'''
+make
+'''
