@@ -39,9 +39,7 @@ Node* DecisionTree::buildTree(Data data, int depth){
     for(int i = 0; i < data.getSampleSize(); i++){
         std::vector<double> temp;
         for(int j = 0; j < featuresSize; j++){
-            if(j != bestFeatureIndex){
                 temp.push_back(data.getFeature(j,i));
-            }
         }
         if(data.getFeature(bestFeatureIndex, i) <= bestThreshold){
             leftFeatures.push_back(temp);

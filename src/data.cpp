@@ -66,7 +66,7 @@ Data Data::bootstrapData(int numSamples, int numFeatures){
 
 bool Data::isPure(){
     std::string firstLabel = labels[0];
-    for(int i = 1; i < labels.size(); i++){
+    for(int i = 1; i < (int)labels.size(); i++){
         if(labels[i] != firstLabel){
             return false;
         }

@@ -10,7 +10,8 @@
 class RandomForest{
     public:
         RandomForest(int numTrees, int maxDepth, int minSamplesSplit, int featuresPerTree, int samplesPerTree)
-        :numTrees(numTrees), maxDepth(maxDepth), minSamplesSplit(minSamplesSplit), featuresPerTree(featuresPerTree), samplesPerTree(samplesPerTree){};
+        :numTrees(numTrees), maxDepth(maxDepth), minSamplesSplit(minSamplesSplit),
+        featuresPerTree(featuresPerTree), samplesPerTree(samplesPerTree){};
 
         std::string predict(std::vector<double> input);
         void train(Data& trainData);

@@ -33,6 +33,8 @@ class Data{
             return features.size();
         };
 
+        std::vector<double> getFeatureVector(int index){return features[index];}
+
         double getFeature(int featureIndex, int sampleIndex){
             if(featureIndex < getFeatureSize() && sampleIndex < getSampleSize()){
                 return features[sampleIndex][featureIndex];
