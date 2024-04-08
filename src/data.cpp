@@ -28,8 +28,8 @@ void Data::loadDataFromCSV(std::string& csvFileName, int targetFeatureIndex){
 }
 
 void Data::printData(){
-    for(int i = 0; i < features.size(); i++){
-        for(int j = 0; j < features[i].size(); j++){
+    for(int i = 0; i < (int)features.size(); i++){
+        for(int j = 0; j < (int)features[i].size(); j++){
             std::cout << features[i][j] << " ";
         }
         std::cout << ": " << labels[i] << std::endl;
@@ -72,4 +72,37 @@ bool Data::isPure(){
         }
     }
     return true;
+}
+
+std::pair<Data, Data> Data::splitData(double trainRatio){
+    int trainSize = static_cast<int>(getSampleSize() * trainRatio);
+
+    std::vector<int> indices(getSampleSize());
+    std::iota(indices.begin(), indices.end(), 0);
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::shuffle(indices.begin(), indices.end(), gen);
+
+    std::vector<int> trainIndices(indices.begin(), indices.begin() + trainSize);
+    std::vector<int> testIndices(indices.begin() + trainSize,indices.end());
+
+    std::vector<std::vector<double>> trainFeatures;
+    std::vector<std::string> trainLabels;
+    for(int index : trainIndices){
+        trainFeatures.push_back(features[index]);
+        trainLabels.push_back(labels[index]);
+    }
+
+    std::vector<std::vector<double>> testFeatures;
+    std::vector<std::string> testLabels;
+    for(int index : testIndices){
+        testFeatures.push_back(features[index]);
+        testLabels.push_back(labels[index]);
+    }
+
+    Data trainData(trainFeatures, trainLabels);
+    Data testData(testFeatures, testLabels);
+
+    return std::make_pair(trainData, testData);
 }

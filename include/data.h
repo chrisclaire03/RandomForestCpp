@@ -9,7 +9,9 @@
 #include<string>
 #include<fstream>
 #include<sstream>
+#include<iostream>
 #include<random>
+#include<algorithm>
 
 class Data{
     private:
@@ -22,6 +24,8 @@ class Data{
         void printData();
         Data bootstrapData(int numSamples, int numFeatures);
         
+        std::pair<Data, Data> splitData(double trainRatio);
+
         int getFeatureSize() {
             return features[0].size();
         };
