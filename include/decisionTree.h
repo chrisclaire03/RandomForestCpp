@@ -20,8 +20,10 @@ class DecisionTree{
         Node* createLeafNode(Data data);
         double calculateGini(Data data, int featureIndex, double threshold);
         std::string predict(const std::vector<double>& input, Node* curNode);
+        void clean(Node* cur);
     public:
         DecisionTree(int maxDepth, int minSamplesSplit) : root(nullptr), maxDepth(maxDepth), minSamplesSplit(minSamplesSplit){};
+        ~DecisionTree(){clean(root); root = nullptr;};
         void train(Data trainData);
         std::string predict(const std::vector<double>& input);
 };

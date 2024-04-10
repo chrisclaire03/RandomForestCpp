@@ -136,3 +136,12 @@ std::string DecisionTree::predict(const std::vector<double>& input, Node* cur){
         return predict(input, cur->right);
     }
 }
+
+void DecisionTree::clean(Node* cur){
+    if(cur == nullptr){
+        return;
+    }
+    clean(cur->left);
+    clean(cur->right);
+    delete cur;
+}
