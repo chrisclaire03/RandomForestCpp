@@ -28,8 +28,7 @@ class Node{
             }
             else{
                 Node(other.featureIndex, other.threshold, other.left, other.right);
-            }
-            
+            }   
         }
 
         Node(int bestFeatureIndex, double bestThreshold, Node* leftChild, Node* rightChild){

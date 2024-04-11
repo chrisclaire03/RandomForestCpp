@@ -27,14 +27,6 @@ void Data::loadDataFromCSV(std::string& csvFileName, int targetFeatureIndex){
     csvFile.close();
 }
 
-void Data::printData(){
-    for(int i = 0; i < (int)features.size(); i++){
-        for(int j = 0; j < (int)features[i].size(); j++){
-            std::cout << features[i][j] << " ";
-        }
-        std::cout << ": " << labels[i] << std::endl;
-    }
-}
 
 Data Data::bootstrapData(int numSamples, int numFeatures){   
     std::random_device rd;
@@ -105,4 +97,13 @@ std::pair<Data, Data> Data::splitData(double trainRatio){
     Data testData(testFeatures, testLabels);
 
     return std::make_pair(trainData, testData);
+}
+
+double Data::getFeature(int featureIndex, int sampleIndex) const{
+    if(featureIndex < getFeatureSize() && sampleIndex < getSampleSize()){
+        return features[sampleIndex][featureIndex];
+    }
+    else{
+        return -1;
+    }
 }
