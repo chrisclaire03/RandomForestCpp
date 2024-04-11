@@ -13,6 +13,16 @@ make
 ./rf data.csv targetFeatureIndex
 ```
 
+## Test with iris dataset [source](https://gist.github.com/curran/a08a1080b88344b0c8a7)
+
+features: sepal_length, sepal_width, petal_length, petal_width, species
+target feature = species
+command:
+
+```
+./rf datasets/iris.csv 4 20 10 5 4 50
+```
+
 ## Test with diabetes dataset [soure](https://www.kaggle.com/datasets/mathchi/diabetes-data-set)
 
 features : Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin,BMI ,DiabetesPedigreeFunction, Age, Outcome
