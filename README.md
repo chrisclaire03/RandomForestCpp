@@ -20,17 +20,7 @@ target feature = species
 command:
 
 ```
-./rf datasets/iris.csv 4 20 10 5 4 50
-```
-
-## Test with diabetes dataset [soure](https://www.kaggle.com/datasets/mathchi/diabetes-data-set)
-
-features : Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin,BMI ,DiabetesPedigreeFunction, Age, Outcome
-target feature = Outcome
-command:
-
-```
-./rf datasets/diabetes.csv 8
+./rf datasets/iris.csv 4 50 10 5 4 70
 ```
 
 Outputs results from created test set.
