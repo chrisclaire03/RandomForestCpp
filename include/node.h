@@ -14,6 +14,23 @@ class Node{
         Node* left;
         Node* right;
 
+        ~Node(){
+            if(!isLeaf()){
+                delete left;
+                delete right;
+            }
+
+        }
+
+        Node(const Node& other){
+            if(other.isLeaf()){
+                Node(other.label);
+            }
+            else{
+                Node(other.featureIndex, other.threshold, other.left, other.right);
+            }
+            
+        }
 
         Node(int bestFeatureIndex, double bestThreshold, Node* leftChild, Node* rightChild){
             featureIndex = bestFeatureIndex;
@@ -28,7 +45,7 @@ class Node{
             right = nullptr;
         }
 
-        bool isLeaf(){
+        bool isLeaf() const{
             if(left == nullptr && right == nullptr){
                 return true;
             }

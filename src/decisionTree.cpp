@@ -54,10 +54,8 @@ Node* DecisionTree::buildTree(Data data, int depth){
     Data leftSubset(leftFeatures,leftLabels);
     Data rightSubset(rightFeatures, rightLabels);
 
-    Node* leftChild = buildTree(leftSubset, depth + 1);
-    Node* rightChild = buildTree(rightSubset, depth + 1);
 
-    return new Node(bestFeatureIndex,bestThreshold, leftChild, rightChild);
+    return new Node(bestFeatureIndex,bestThreshold,buildTree(leftSubset, depth + 1), buildTree(rightSubset, depth + 1));
     
 }
 
@@ -144,4 +142,14 @@ void DecisionTree::clean(Node* cur){
     clean(cur->left);
     clean(cur->right);
     delete cur;
+}
+
+Node* DecisionTree::copy(Node* cur){
+    if(cur == nullptr){
+        return nullptr;
+    }
+    if(cur->isLeaf()){
+        return new Node(cur->label);
+    }
+    return new Node(cur->featureIndex, cur->threshold, copy(cur->left), copy(cur->right));
 }
