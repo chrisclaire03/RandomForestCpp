@@ -1,9 +1,6 @@
 #include "../include/decisionTree.h"
 
 void DecisionTree::train(const Data& trainData){
-    if(trainData.getFeatureSize() < maxDepth){
-        maxDepth = trainData.getFeatureSize();
-    }
     root = buildTree(trainData, 0);
 }
 
@@ -21,7 +18,7 @@ Node* DecisionTree::buildTree(const Data& data, int depth){
             double possibleThreshold = data.getFeature(i,j);
             double gini = calculateGini(data,i,possibleThreshold);
             if(gini < bestGini){
-                bestFeatureIndex = i;
+                bestFeatureIndex = data.getFeatureIndex(i);
                 bestThreshold = possibleThreshold;
                 bestGini = gini;
             }
@@ -51,8 +48,8 @@ Node* DecisionTree::buildTree(const Data& data, int depth){
         }
     }
 
-    Data leftSubset(leftFeatures,leftLabels);
-    Data rightSubset(rightFeatures, rightLabels);
+    Data leftSubset(leftFeatures,leftLabels, data.getFeatureIndices());
+    Data rightSubset(rightFeatures, rightLabels, data.getFeatureIndices());
 
 
     return new Node(bestFeatureIndex,bestThreshold,buildTree(leftSubset, depth + 1), buildTree(rightSubset, depth + 1));

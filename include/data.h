@@ -17,9 +17,16 @@ class Data{
     private:
         std::vector<std::vector<double>> features;
         std::vector<std::string> labels;
+        std::vector<int> featureIndices;
     public:
         Data(){};
-        Data(std::vector<std::vector<double>> featureVector,std::vector<std::string> labelVector): features(featureVector), labels(labelVector){};
+        Data(std::vector<std::vector<double>> featureVector,std::vector<std::string> labelVector): features(featureVector), labels(labelVector){
+            for(int i = 0; i < (int)featureVector[0].size(); i++){
+                featureIndices.push_back(i);
+            }
+        };
+        Data(std::vector<std::vector<double>> featureVector,std::vector<std::string> labelVector, std::vector<int> features):
+        features(featureVector), labels(labelVector), featureIndices(features){};
         void loadDataFromCSV(std::string& csvFileName, int targetFeatureIndex);
         void printData();
         Data bootstrapData(int numSamples, int numFeatures);
@@ -34,6 +41,9 @@ class Data{
         };
 
         std::vector<double> getFeatureVector(int index) const {return features[index];}
+
+        int getFeatureIndex(int index) const{return featureIndices[index];}
+        std::vector<int> getFeatureIndices() const{return featureIndices;}
 
         double getFeature(int featureIndex, int sampleIndex) const{
             if(featureIndex < getFeatureSize() && sampleIndex < getSampleSize()){

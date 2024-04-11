@@ -61,7 +61,7 @@ Data Data::bootstrapData(int numSamples, int numFeatures){
         bootstrappedLabels.push_back(labels[randomIndex]);
     }
 
-    return Data(bootstrappedFeatures,bootstrappedLabels);
+    return Data(bootstrappedFeatures,bootstrappedLabels, sampledFeatures);
 }
 
 bool Data::isPure() const {
