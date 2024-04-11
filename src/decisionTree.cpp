@@ -1,13 +1,13 @@
 #include "../include/decisionTree.h"
 
-void DecisionTree::train(Data trainData){
+void DecisionTree::train(const Data& trainData){
     if(trainData.getFeatureSize() < maxDepth){
         maxDepth = trainData.getFeatureSize();
     }
     root = buildTree(trainData, 0);
 }
 
-Node* DecisionTree::buildTree(Data data, int depth){
+Node* DecisionTree::buildTree(const Data& data, int depth){
     if(depth >= maxDepth || data.getSampleSize() < minSamplesSplit || data.isPure()){
         return createLeafNode(data);
     }
@@ -59,7 +59,7 @@ Node* DecisionTree::buildTree(Data data, int depth){
     
 }
 
-double DecisionTree::calculateGini(Data data, int featureIndex, double threshold){
+double DecisionTree::calculateGini(const Data& data, int featureIndex, double threshold){
     int totalSamples = data.getSampleSize();
     int leftCount = 0;
     int rightCount = 0;
@@ -103,7 +103,7 @@ double DecisionTree::calculateGini(Data data, int featureIndex, double threshold
     return leftGini + rightGini;
 }
 
-Node* DecisionTree::createLeafNode(Data data){
+Node* DecisionTree::createLeafNode(const Data& data){
     std::unordered_map<std::string, int> labelCounts;
     for(int i = 0; i < data.getSampleSize(); i++){
         labelCounts[data.getLabel(i)]++;

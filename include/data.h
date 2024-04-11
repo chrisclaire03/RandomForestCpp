@@ -26,16 +26,16 @@ class Data{
         
         std::pair<Data, Data> splitData(double trainRatio);
 
-        int getFeatureSize() {
+        int getFeatureSize() const {
             return features[0].size();
         };
-        int getSampleSize(){
+        int getSampleSize() const {
             return features.size();
         };
 
-        std::vector<double> getFeatureVector(int index){return features[index];}
+        std::vector<double> getFeatureVector(int index) const {return features[index];}
 
-        double getFeature(int featureIndex, int sampleIndex){
+        double getFeature(int featureIndex, int sampleIndex) const{
             if(featureIndex < getFeatureSize() && sampleIndex < getSampleSize()){
                 return features[sampleIndex][featureIndex];
             }
@@ -44,9 +44,9 @@ class Data{
             }
         }
         
-        bool isPure();
+        bool isPure() const;
 
-        std::string getLabel(int index){return labels[index];}
+        std::string getLabel(int index) const {return labels[index];}
 
 
 };

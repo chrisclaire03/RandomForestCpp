@@ -16,17 +16,17 @@ class DecisionTree{
         Node* root;
         int maxDepth;
         int minSamplesSplit;
-        Node* buildTree(Data data, int depth);
-        Node* createLeafNode(Data data);
+        Node* buildTree(const Data& data, int depth);
+        Node* createLeafNode(const Data& data);
         Node* copy(Node* cur);
-        double calculateGini(Data data, int featureIndex, double threshold);
+        double calculateGini(const Data& data, int featureIndex, double threshold);
         std::string predict(const std::vector<double>& input, Node* curNode);
         void clean(Node* cur);
     public:
         DecisionTree(int maxDepth, int minSamplesSplit) : root(nullptr), maxDepth(maxDepth), minSamplesSplit(minSamplesSplit){};
         ~DecisionTree(){delete root;};
         DecisionTree(const DecisionTree& other) : root(copy(other.root)), maxDepth(other.maxDepth), minSamplesSplit(other.minSamplesSplit){};
-        void train(Data trainData);
+        void train(const Data& trainData);
         std::string predict(const std::vector<double>& input);
 };
 

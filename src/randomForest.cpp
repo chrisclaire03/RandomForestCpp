@@ -9,7 +9,7 @@ void RandomForest::train(Data& trainData){
     }
 }
 
-std::string RandomForest::predict(std::vector<double> input){
+std::string RandomForest::predict(const std::vector<double>& input){
     std::unordered_map<std::string, int> classCounts;
     for(int i = 0; i < numTrees; i++){
         classCounts[trees[i].predict(input)]++;
