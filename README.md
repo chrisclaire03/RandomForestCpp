@@ -10,7 +10,7 @@ make
 ## Executable Use Format
 
 ```
-./rf data.csv targetFeatureIndex
+./rf data.csv targetFeatureIndex numTrees maxDepth minSamplesSplit featuresPerTree samplesPerTree
 ```
 
 ## Test with iris dataset [source](https://gist.github.com/curran/a08a1080b88344b0c8a7)
